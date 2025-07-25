@@ -5,15 +5,6 @@ import TodoInput from "@/components/todoComponents/TodoInput";
 import TodoList from "@/components/todoComponents/todoList";
 
 export default function Home() {
-  // const hasTodos = todos.length > 0;
-  // const isLanguageIndonesian = false
-
-  // let list
-  // if (!hasTodos) {
-  //   list =  <p className="text-center text-gray-500">Task is empty. Please create a task</p>;
-  // } else {
-  //   list =  <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />;
-  // }
 
   return (
     <TodoProvider>
@@ -23,29 +14,6 @@ export default function Home() {
           <TodoInput />
           <TodoList />
 
-          {/* 1. if-else */}
-          {/* {(() => {
-          if (!hasTodos) {
-            return <p className="text-center text-gray-500">Task is empty. Please create a task</p>;
-          } else {
-            return <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />;
-          }
-        })()} */}
-
-          {/* 2. Ternary operator */}
-          {/* {hasTodos ? (
-            <TodoList />
-          ) : isLanguageIndonesian ? (
-            <p className="text-center text-gray-500">Task kosong, silahkan buat Task baru.</p>
-          ) : (
-            <p className="text-center text-gray-500">Task is empty. Please create a task</p>
-          )} */}
-
-          {/* 3. Logical AND (&&) */}
-          {/* {hasTodos && <TodoList todos={todos} toggleDone={toggleDone} deleteTodo={deleteTodo} />}
-        {!hasTodos && <p className="text-center text-gray-500">Task is empty. Please create a task</p>} */}
-
-          {/* {list} */}
         </div>
       </main>
     </TodoProvider>

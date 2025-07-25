@@ -1,49 +1,88 @@
-"use client"
+"use client";
 
-import {useState, useEffect, createContext, useContext} from 'react'
+import {  
+  useEffect,
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
 
-const TodoContext = createContext()
 
-export const TodoProvider = ({children}) => {
-	const [todos, setTodos] = useState([])
-	const [input, setInput] = useState("")
+const TodoContext = createContext();
 
-	//eefect saat mounting
-	useEffect(() => {
-    const savedData = localStorage.getItem("todos");
-    if (savedData) setTodos(JSON.parse(savedData));
-  }, []);
+const intialState = {
+  todos: [],
+  input: "",
+  loading : true
+};
 
-	//effect saat update todos
-	const lakukanUpdate = () => {
-    console.log("Todos is updated");
-    localStorage.setItem("todos", JSON.stringify(todos));
-  };
-  useEffect(lakukanUpdate, [todos]);
+function todoReducer(state, action) {
+  switch (action.type) {
+    case "SET_TODOS":
+      return { ...state, todos: action.payload };
 
-	const addTodo = () => {
-    if (!input.trim()) {
-			alert("Tidak ada task yang ditambahkan")
-			return
-		}
+    case "SET_INPUT":
+      return { ...state, input: action.payload };
 
-    setTodos([...todos, { id: Date.now(), text: input, done: false }]);
-    setInput("");
-  };
+    case "ADD_TODO":
+      if (!state.input.trim()) return state;
+      return {
+        todos: [
+          ...state.todos,
+          { id: Date.now(), text: state.input, done: false },
+        ],
+        input: "",
+      };
+    case "TOGGLE_DONE":
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload ? { ...todo, done: true } : todo
+        ),
+      };
+    case "TODO_DELETE":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== action.payload),
+      };
 
-	const toggleDone = (id) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo)));
-  };
+	  
+	  case "SET_LOADING":
+	  return {
+		...state, loading :action.payload
+	  }
 
-	const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-	return (
-		<TodoContext.Provider value={{todos, input, setInput, addTodo, toggleDone, deleteTodo}}>
-			{children}
-		</TodoContext.Provider>
-	)
+    default:
+      return state
+  }
 }
 
-export const useTodos = () => useContext(TodoContext)
+export const TodoProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(todoReducer,intialState);
+//   const [todos, setTodos] = useState([]);
+//   const [input, setInput] = useState("");
+
+  //eefect saat mounting
+  useEffect(() => {
+    const savedData = localStorage.getItem("todos");
+    if (savedData) dispatch({type : "SET_TODOS", payload: JSON.parse(savedData)});
+	dispatch({type: "SET_LOADING",payload :false})
+  }, []);
+
+  //effect saat update todos
+  const lakukanUpdate = () => {
+    console.log("Todos is updated");
+    localStorage.setItem("todos", JSON.stringify(state.todos));
+  };
+  useEffect(lakukanUpdate, [state.todos]);
+
+  return (
+    <TodoContext.Provider
+      value={{ state,dispatch}}
+    >
+      {children}
+    </TodoContext.Provider>
+  );
+};
+
+export const useTodos = () => useContext(TodoContext);
