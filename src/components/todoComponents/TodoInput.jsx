@@ -4,17 +4,29 @@ import {useTodos} from '@/context/todoContext'
 
 
 export default function TodoInput() {
+<<<<<<< HEAD
   const {state,dispatch} = useTodos()
 
   const hadleChange = (e) => {
     console.log('Chnage', e.target.value)
     dispatch({type: "SET_INPUT",payload:e.target.value})
+=======
+  const {state, dispatch} = useTodos()
+
+  const hadleChange = (e) => {
+    console.log('Change', e.target.value)
+    dispatch({type: "SET_INPUT", payload: e.target.value})
+>>>>>>> 73421df66e20ad5514c389b461e0cf566faf4eeb
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log("Input is submitted")
+<<<<<<< HEAD
     dispatch({type:"ADD_TODO"})
+=======
+    dispatch({type: "ADD_TODO"})
+>>>>>>> 73421df66e20ad5514c389b461e0cf566faf4eeb
   }
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">

@@ -12,6 +12,10 @@ export default function TodoList() {
     return <p className='text-center text-blue-300 font-medium'>Loading ..... Sedang Mengambil data</p>
   }
 
+  if (state.loading) {
+    return <p className='text-center text-blue-500 font-medium'>Loading... Sedang mengambil data.</p>
+  }
+
   if (!hasTodos) {
     return <p className="text-center text-gray-500">Task kosong, silahkan buat Task baru.</p>;
   }
