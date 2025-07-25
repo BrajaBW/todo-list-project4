@@ -2,9 +2,8 @@
 
 import { BrowserRouter } from 'react-router-dom';
 import { Geist, Geist_Mono } from "next/font/google";
-import Nextnav from '@/components/navigation/nextNav'
-// import Nav from "@/components/navigation/nav"
-// import RouterView from '@/components/navigation/routerView';
+import Nextnav from 
+
 
 
 import "./globals.css";
