@@ -2,11 +2,12 @@
 
 import { BrowserRouter } from 'react-router-dom';
 import { Geist, Geist_Mono } from "next/font/google";
-import Nextnav from 
-
+// import Nav from "@/components/navigation/nav"
+// import RouterView from '@/components/navigation/routerView';
 
 
 import "./globals.css";
+import NextNavG1 from '@/components/navigation/nextNavGroup1';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Nextnav/>
+        <NextNavG1/>
         {children}
 
        {/* menggunakan react router dom*/}
